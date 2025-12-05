@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>最佳老婆奖 - 荣誉证书</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffd1dc 0%, #ffe4e1 100%);
+            font-family: "Microsoft YaHei", "SimHei", sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* 飘落的爱心背景 */
+        .heart-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .certificate-container {
+            position: relative;
+            background: rgba(255, 255, 255, 0.95);
+            width: 90%;
+            max-width: 600px;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3);
+            text-align: center;
+            z-index: 1;
+            border: 8px solid #ffb7c5;
+            outline: 2px dashed #ff69b4;
+            outline-offset: -14px;
+            animation: popIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .badge {
+            width: 80px;
+            height: 80px;
+            background: #ff69b4;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 40px;
+            box-shadow: 0 4px 15px rgba(255, 105, 180, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        h1 {
+            color: #d33a2c;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+
+        .content {
+            font-size: 1.2em;
+            line-height: 1.8;
+            color: #444;
+            margin-bottom: 30px;
+            text-align: left;
+            padding: 0 20px;
+        }
+
+        .highlight {
+            color: #ff1493;
+            font-weight: bold;
+            font-size: 1.3em;
+            border-bottom: 2px solid #ff69b4;
+            padding: 0 5px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: 0 20px;
+            font-family: "KaiTi", serif;
+            font-size: 1.1em;
+        }
+
+        .stamp {
+            width: 100px;
+            height: 100px;
+            border: 3px solid #ff0000;
+            border-radius: 50%;
+            color: #ff0000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            transform: rotate(-15deg);
+            font-weight: bold;
+            opacity: 0.8;
+            position: absolute;
+            bottom: 80px;
+            right: 40px;
+            background: rgba(255, 255, 255, 0.5);
+            box-shadow: inset 0 0 0 2px #ff0000;
+            pointer-events: none;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #ff69b4, #ff1493);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 5px 15px rgba(255, 20, 147, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 20, 147, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        /* 烟花效果容器 */
+        #fireworks {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+        
+        @media (max-width: 480px) {
+            .certificate-container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 { font-size: 2em; }
+            .content { font-size: 1.1em; padding: 0; }
+            .footer { flex-direction: column; align-items: flex-end; gap: 10px; }
+            .stamp { width: 80px; height: 80px; font-size: 14px; bottom: 120px; right: 20px;}
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="fireworks"></canvas>
+
+    <div class="certificate-container">
+        <div class="badge">❤</div>
+        <h1>最佳老婆奖</h1>
+        <div class="subtitle">CERTIFICATE OF BEST WIFE</div>
+        
+        <div class="content">
+            <p>亲爱的 <span class="highlight">老婆大人</span>：</p>
+            <p style="text-indent: 2em;">
+                鉴于你在本年度温柔贤惠、美丽大方，持家有道，对老公关爱有加。你的笑容治愈了一切烦恼，你的陪伴是世间最长情的告白。
+            </p>
+            <p style="text-indent: 2em;">
+                经家庭委员会一致通过，特授予你“<strong>年度最佳老婆</strong>”荣誉称号，以资鼓励！
+            </p>
+            <p style="text-align: center; color: #ff69b4; margin-top: 20px;">
+                ❤️ 愿我们岁岁常相见，年年皆胜意 ❤️
+            </p>
+        </div>
+
+        <div class="footer">
+            <div class="date">
+                <p>颁奖日期</p>
+                <p id="currentDate">2023年12月12日</p>
+            </div>
+            <div class="signature">
+                <p>颁奖人</p>
+                <p style="font-family: 'Cursive', cursive; font-size: 1.4em;">爱你的老公</p>
+            </div>
+        </div>
+
+        <div class="stamp">
+            老公认证<br>专用章
+        </div>
+
+        <button class="btn" onclick="celebrate()">领取奖励</button>
+    </div>
+
+    <script>
+        // 设置当前日期
+        const date = new Date();
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+        document.getElementById('currentDate').innerText = `${year}年${month}月${day}日`;
+
+        // 烟花效果逻辑
+        const canvas = document.getElementById('fireworks');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function createParticle(x, y) {
+            const particleCount = 30;
+            for (let i = 0; i < particleCount; i++) {
+                particles.push({
+                    x: x,
+                    y: y,
+                    vx: (Math.random() - 0.5) * 10,
+                    vy: (Math.random() - 0.5) * 10,
+                    life: 100,
+                    color: `hsl(${Math.random() * 360}, 100%, 50%)`
+                });
+            }
+        }
+
+        function drawParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach((p, index) => {
+                p.x += p.vx;
+                p.y += p.vy;
+                p.life--;
+                p.vy += 0.2; // gravity
+
+                ctx.fillStyle = p.color;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+                ctx.fill();
+
+                if (p.life <= 0) {
+                    particles.splice(index, 1);
+                }
+            });
+            requestAnimationFrame(drawParticles);
+        }
+
+        // 启动动画循环
+        drawParticles();
+
+        // 庆祝函数
+        function celebrate() {
+            // 触发多次烟花
+            let count = 0;
+            const interval = setInterval(() => {
+                const x = Math.random() * window.innerWidth;
+                const y = Math.random() * window.innerHeight * 0.5; // 上半部分
+                createParticle(x, y);
+                count++;
+                if (count > 10) clearInterval(interval);
+            }, 200);
+
+            // 弹出提示
+            setTimeout(() => {
+                alert("奖励：老公的亲亲一个！💋\n");
+            }, 500);
+        }
+    </script>
+</body>
+</html>
